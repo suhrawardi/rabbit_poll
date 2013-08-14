@@ -19,6 +19,7 @@ defmodule RabbitPoll.Mixfile do
 
   defp deps do
     [ { :cowboy, github: "extend/cowboy" },
-      { :dynamo, "0.1.0.dev", github: "elixir-lang/dynamo" } ]
+      { :jsonex,"2.0", github: "marcelog/jsonex", tag: "2.0" },
+      { :dynamo, "0.1.0-dev", github: "elixir-lang/dynamo" } ]
   end
 end
