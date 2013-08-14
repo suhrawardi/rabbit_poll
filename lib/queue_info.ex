@@ -4,7 +4,7 @@ defmodule QueueInfo do
     "rabbitmqctl list_queues -p /#{vhost} name messages_ready messages_unacknowledged messages"
   end
 
-  def get(query) do
+  def fetch(query) do
     System.cmd(query)
   end
 
@@ -20,20 +20,22 @@ defmodule QueueInfo do
     lc [head|tail] inlist list, do: {head, tail}
   end
 
-  def as_list(vhost) do
+  def filtered(list, queue) do
+    Enum.filter(list, fn({x, _}) -> x == queue end)
+  end
+
+  def as_json(list) do
+    Jsonex.encode(list)
+  end
+
+  def get(vhost, queue) do
     vhost
       |> query
-      |> get
+      |> fetch
       |> list
       |> splitted
       |> formatted
-  end
-
-  def filtered_list(vhost, queue) do
-    Enum.filter(as_list(vhost), fn({x, _}) -> x == queue end)
-  end
-
-  def as_json(vhost, queue) do
-    Jsonex.encode(filtered_list(vhost, queue))
+      |> filtered(queue)
+      |> as_json
   end
 end

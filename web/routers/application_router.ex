@@ -6,6 +6,6 @@ defmodule ApplicationRouter do
   end
 
   get "/:vhost/:queue" do
-    conn.send(200, QueueInfo.as_json(vhost, queue))
+    conn.send(200, QueueInfo.get(vhost, queue))
   end
 end
