@@ -4,7 +4,12 @@
   <title>RabbitMQ poll</title>
 </head>
 <body>
-  <h3>Welcome to this application!</h3>
-  <p>Details follow here!</p>
+  <p>Send a HTTP GET request to fetch the statistics:</p>
+  <pre>$ wget http://0.0.0.0:4000/vhost/queue</pre>
+  <p>This returns a JSON object:</p>
+  <pre>{"queue-name":["3","6","9"]}</pre>
+  <p>Whereby the first number is the messages ready, the second number the messages unacknowledged and the last one the total number of messages.</p>
+  <p>The statistics are fetched with the following command:</p>
+  <pre>$ rabbitmqctl list_queues -p /vhost name messages_ready messages_unacknowledged messages</pre>
 </body>
 </html>
